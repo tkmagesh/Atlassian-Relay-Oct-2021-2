@@ -1,0 +1,262 @@
+query noOfUsers{
+  totalUsers
+}
+
+query allUsers{
+  users {
+    id
+    firstName
+    lastName
+    email
+    fullName
+  }
+}
+
+query allUserEmails {
+  users{
+    id
+    email
+    fullName
+  }
+}
+
+#listing all the projects with their bugs and users
+query allProjects{
+  #all the projects
+  projects{
+    id
+    name
+    description
+    isActive
+    #all the bugs
+    bugs {
+      id
+      title
+      description
+      severity
+      status
+      createdBy{
+        id
+        firstName
+        lastName
+        email
+      }
+    }
+  }
+}
+
+#using arguments
+query user1{
+  user(id : "user-1"){
+    id
+    firstName
+    lastName
+    email
+    fullName
+  }
+}
+
+query usersByIds {
+  usersById(ids : ["user-1"]){
+    id
+    firstName
+    lastName
+    email
+  }
+}
+
+#using alias
+query usersByAlias {
+  users {
+    id
+    fName : firstName
+    lName: lastName
+    email
+  }
+}
+
+query getAppUserWithAlias{
+  appUser : user(id : "user-1"){
+    id
+    fName : firstName
+    lName : lastName
+    email
+  }
+}
+
+
+#using variables
+query getUserById($userId : ID!) {
+  user(id : $userId){
+    id
+    firstName
+    lastName
+    email
+  }
+}
+
+#using enum
+query projectByBugStatus{
+  project(id : "project-2") {
+    id
+		name
+    description
+    isActive
+    bugs(status : OPEN){
+      id
+      title
+      description
+      severity
+      status
+    }
+  }
+}
+
+#using variables and enums
+query projectByBugStatus2($projectId : ID!, $bugStatus : Status){
+  project(id :$projectId) {
+    id
+		name
+    description
+    isActive
+    bugs(status : $bugStatus){
+      id
+      title
+      description
+      severity
+      status
+    }
+  }
+}
+
+#fragment
+fragment bugDetails on Bug {
+  id
+  title
+  description
+  severity
+  status
+}
+
+query projectsWithBugFragment{
+  projects {
+    id
+    name
+    description
+    bugs {
+      ...bugDetails
+    }
+  }
+}
+
+#example-2
+#################
+fragment openBugDetails on Project{
+  bugs(status : OPEN) {
+    id
+    title
+    description
+    severity
+    status
+  }
+}
+
+query ProjectsWithOpenBugs{
+  projects{
+    id
+    name
+    description
+    isActive
+    ...openBugDetails
+  }
+}
+
+#################
+fragment openBugDetails2 on Project{
+  bugs(status : OPEN) {
+    ...bugDetails
+  }
+}
+
+query ProjectsWithOpenBugs2{
+  projects{
+    id
+    name
+    description
+    isActive
+    ...openBugDetails2
+  }
+}
+
+
+#variables with fragments
+fragment bugDetailsByStatus on Project {
+  bugs(status : $bugStatus){
+      id
+      title
+      description
+      severity
+      status
+    }
+}
+
+
+query projectByBugStatus3($projectId : ID! = "project-1", $bugStatus : Status = OPEN){
+  project(id :$projectId) {
+    id
+		name
+    description
+    isActive
+    ...bugDetailsByStatus
+  }
+}
+
+#fragment on interface
+fragment actionDetails on Action {
+  id
+  date
+  bugId
+}
+
+query bugsWithActions{
+  bugs{
+    ...bugDetails
+    actions {
+      ...actionDetails
+    }
+  }
+}
+
+query allActionsForBug{
+  actions(bugId : "bug-"){
+    ...actionDetails
+  }
+}
+
+
+#using directives (@include & @skip)
+query projectsWithBugs($includeDetails : Boolean = false){
+  projects{
+    id
+    name
+    description
+    isActive
+    bugs(status : OPEN) @include(if : $includeDetails) {
+      id
+      title
+      description
+      severity
+      status
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+

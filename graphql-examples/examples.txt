@@ -473,3 +473,56 @@ query enumValues{
   }
 }
 
+#assignment
+fragment bugDetailsWithActions on Bug{
+	...bugDetails
+  actions {
+      __typename
+      id
+      date
+      bugId
+      ... on OpenAction {
+        openedBy{
+          ...userDetails
+        }
+        description
+      }
+      ... on CommentAction {
+        commentedBy{
+          ...userDetails
+        }
+        comment
+      }
+      ... on FixAction {
+        fixedBy{
+          ...userDetails
+        }
+        solution
+      }
+      ... on CloseAction {
+        closedBy{
+          ...userDetails
+        }
+        reason
+      }
+    }
+}
+query dataForProjectScreen{
+  project(id : "project-5") {
+    id
+		name
+    description
+    isActive
+    openBugs : bugs(status : OPEN){
+      ...bugDetailsWithActions
+    }
+    inProgressBugs : bugs(status : IN_PROGRESS){
+      ...bugDetailsWithActions
+    }
+    closedBugs : bugs(status : CLOSED){
+      ...bugDetailsWithActions
+    }
+  }
+}
+
+

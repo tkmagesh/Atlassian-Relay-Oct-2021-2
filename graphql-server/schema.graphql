@@ -1,0 +1,145 @@
+schema {
+  query: RootQuery
+  mutation: Mutations
+}
+
+"""Represents a user of the application"""
+type User {
+  """The id of the user"""
+  id: ID!
+
+  """The first name of the user"""
+  firstName: String!
+
+  """The last name of the user"""
+  lastName: String!
+
+  """The email of the user"""
+  email: String!
+  fullName: String!
+}
+
+enum Severity {
+  LOW
+  MINOR
+  MAJOR
+  CRITICAL
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+interface Action {
+  id: ID!
+  date: String!
+  bugId: ID!
+}
+
+type CommentAction implements Action {
+  id: ID!
+  date: String!
+  bugId: ID!
+  commentedBy: User
+  description: String!
+  comment: String!
+}
+
+type OpenAction implements Action {
+  id: ID!
+  date: String!
+  bugId: ID!
+  openedBy: User
+  description: String!
+}
+
+type FixAction implements Action {
+  id: ID!
+  date: String!
+  bugId: ID!
+  fixedBy: User
+  solution: String!
+}
+
+type CloseAction implements Action {
+  id: ID!
+  date: String!
+  bugId: ID!
+  closedBy: User
+  reason: String!
+}
+
+type Bug {
+  id: ID
+  title: String!
+  description: String!
+  severity: Severity!
+  createdBy: User
+  status: Status
+  projectId: ID!
+  actions: [Action]
+}
+
+type Project {
+  id: ID!
+  name: String!
+  description: String!
+  isActive: Boolean!
+  bugs(status: Status): [Bug!]
+}
+
+type RootQuery {
+  totalUsers: Int
+  user(id: ID!): User
+  users: [User]
+  project(id: ID!): Project
+  projects: [Project]
+  bug(id: ID!): Bug
+  bugs: [Bug]
+  openBugs(projectId: ID!): [Bug]
+  action(id: ID!): Action
+  actions(bugId: ID!): [Action]
+}
+
+type Mutations {
+  createUser(firstName: String!, lastName: String!, email: String!): User
+  createProject(project: ProjectInput): Project
+  createBug(bug: BugInput): Bug
+  fixBug(fixInfo: FixBugInput): Bug
+  closeBug(closeBugInfo: CloseBugInput): Bug
+  commentBug(commentInfo: CommentBugInput): Bug
+}
+
+input ProjectInput {
+  name: String!
+  description: String!
+  isActive: Boolean!
+}
+
+input BugInput {
+  title: String!
+  description: String!
+  severity: Severity!
+  projectId: ID!
+  userId: ID!
+}
+
+input FixBugInput {
+  bugId: ID!
+  fixedBy: ID!
+  solution: String!
+}
+
+input CloseBugInput {
+  bugId: ID!
+  closedBy: ID!
+  reason: String!
+}
+
+input CommentBugInput {
+  bugId: ID!
+  commentedBy: ID!
+  comment: String!
+}

@@ -1,0 +1,21 @@
+{
+  "name": "graphql-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "casual": "^1.6.2",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "get-graphql-schema": "^2.1.2",
+    "global": "^4.4.0",
+    "graphql": "^15.6.1",
+    "graphql-relay": "^0.9.0"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}

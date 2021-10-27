@@ -1,0 +1,20 @@
+Schedule
+    Commence    : T
+    Tea Break   : T + 1:30 Hrs (for 15 mins)
+    Lunch       : T + 2:30 Hrs (for 45 mins)
+    Tea Break   : After Lunch + 1:30 Hrs (for 15 mins)
+    End         : T + 7 Hrs
+
+Methodology
+    No Powerpoints
+    Hands-on driven
+
+About You:
+    Name
+    Primary skillset
+    Experience in Graphql / relay (if any)
+
+
+What GraphQL?
+    
+

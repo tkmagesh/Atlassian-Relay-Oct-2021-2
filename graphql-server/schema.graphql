@@ -94,6 +94,7 @@ type RootQuery {
   totalUsers: Int
   user(id: ID!): User
   users: [User]
+  usersById(ids: [ID]): [User]
   project(id: ID!): Project
   projects: [Project]
   bug(id: ID!): Bug

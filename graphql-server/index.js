@@ -234,6 +234,17 @@ var queryType = new GraphQLObjectType({
                 return db.users()
             }
         },
+        usersById:{
+            type : new GraphQLList(User),
+            args : {
+                ids : {
+                    type : new GraphQLList(GraphQLID)
+                }
+            },
+            resolve : (parentValue, args) => {
+                return args.ids.map(id => db.nodes.users[id])
+            }
+        },
         project : {
             type: Project,
             args: {

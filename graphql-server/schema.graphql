@@ -105,6 +105,7 @@ type RootQuery {
 }
 
 type Mutations {
+  dummy: Int!
   createUser(firstName: String!, lastName: String!, email: String!): User
   createProject(project: ProjectInput): Project
   createBug(bug: BugInput): Bug

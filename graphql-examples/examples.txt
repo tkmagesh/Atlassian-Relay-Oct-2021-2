@@ -12,6 +12,22 @@ query allUsers{
   }
 }
 
+query allUsersWithCountAndProjects{
+  totalUsers
+  users {
+    id
+    firstName
+    lastName
+    email
+    fullName
+  }
+  projects{
+    id
+    name
+    description
+  }
+}
+
 query allUserEmails {
   users{
     id
@@ -251,8 +267,158 @@ query projectsWithBugs($includeDetails : Boolean = false){
   }
 }
 
+#mutations
+mutation createNewUser{
+  createUser(firstName : "Magesh", lastName : "Kuppan", email : "mageshk@mail.com"){
+    id
+    firstName
+    lastName
+    email
+    fullName
+  }
+}
 
+#create a new project and retrive the newly created project with bugs
+mutation createNewProject{
+  createProject(project : {
+    name : "Voyager",
+    description : "Visual type exlorer for graphql",
+    isActive : true
+  }){
+    id
+    name
+    description
+    isActive
+    bugs{
+      ...bugDetails
+    }
+  }
+}
 
+mutation createNewProjectWithVariables($newProject : ProjectInput){
+  createProject(project : $newProject){
+    id
+    name
+    description
+    isActive
+    bugs{
+      ...bugDetails
+    }
+  }
+}
+
+mutation createBug{
+  createBug(bug : {
+    title : "Server not listening",
+    description : "server is not responding to requests",
+    severity :CRITICAL,
+    projectId : "project-5",
+    userId : "user-1"
+  }){
+    ...bugDetails,
+    actions{
+      id
+      date
+      bugId
+    }
+  }
+}
+
+mutation CommentABug1{
+  commentBug(commentInfo : {
+    bugId : "bug-6",
+    commentedBy : "user-1",
+    comment: "this need to be fixed sooner"
+  }){
+    ...bugDetails
+  }
+}
+
+mutation CommentABug2{
+  commentBug(commentInfo : {
+    bugId : "bug-6",
+    commentedBy : "user-2",
+    comment: "This is being looked at"
+  }){
+    ...bugDetails
+  }
+}
+
+mutation fixABug{
+  fixBug(fixInfo : {
+    bugId : "bug-6",
+    fixedBy : "user-1",
+    solution : "undo the commits"
+  }){
+    ...bugDetails
+  }
+}
+
+mutation closeABug{
+	closeBug(closeBugInfo : {
+    bugId : "bug-6",
+    closedBy : "user-2",
+		reason : "All tests are green"
+  }){
+    ...bugDetails
+  }
+}
+
+#get the bug with all the actions
+query getBug6{
+  bug(id : "bug-6"){
+    ...bugDetails,
+    actions {
+      id
+      date
+      bugId
+    }
+  }
+}
+
+fragment userDetails on User {
+  id
+  firstName
+  lastName
+  email
+}
+
+#using interfaces & inline fragments
+query getBug6WithAllActions{
+  bug(id : "bug-6"){
+    ...bugDetails,
+    actions {
+      __typename
+      id
+      date
+      bugId
+      ... on OpenAction {
+        openedBy{
+          ...userDetails
+        }
+        description
+      }
+      ... on CommentAction {
+        commentedBy{
+          ...userDetails
+        }
+        comment
+      }
+      ... on FixAction {
+        fixedBy{
+          ...userDetails
+        }
+        solution
+      }
+      ... on CloseAction {
+        closedBy{
+          ...userDetails
+        }
+        reason
+      }
+    }
+  }
+}
 
 
 

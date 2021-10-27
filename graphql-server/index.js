@@ -357,6 +357,12 @@ const CommentBugInput = new GraphQLInputObjectType({
 const mutationType = new GraphQLObjectType({
     name : 'Mutations',
     fields : {
+        dummy : {
+            type : new GraphQLNonNull(GraphQLInt),
+            resolve : () => {
+                console.log('dummy mutation triggerd')
+            }
+        },
         createUser : {
             type : User,
             args : {

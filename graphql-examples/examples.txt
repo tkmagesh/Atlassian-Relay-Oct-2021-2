@@ -451,5 +451,25 @@ query interospection{
 }
 
 
+query implementationsOfActionInterface{
+  __type(name : "Action"){
+    name
+    kind
+    possibleTypes{
+      name
+      kind
+    }
+  }
+}
 
+
+query enumValues{
+  __type(name : "Status"){
+    enumValues{
+      name
+      description
+      __typename
+    }
+  }
+}
 

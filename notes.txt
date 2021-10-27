@@ -162,3 +162,18 @@ User
 Project
 Bug
 Actions
+
+select * from users
+
+
+Rendering Stratagies
+    Fetch On Render
+        Fetch
+        Render
+
+    Fetch Then Render
+        Better user experience
+
+    Render as you fetch (Concurrent, Suspense)
+        Begin fetching
+        Begin rendering

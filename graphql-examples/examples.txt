@@ -421,7 +421,34 @@ query getBug6WithAllActions{
 }
 
 
-
+#interospection query
+query interospection{
+  __schema{
+    queryType{
+      name
+      kind
+      description
+      fields{
+        name
+        description
+        args{
+          name
+          description
+          type{
+            name
+            kind
+          }
+        }
+        type{
+          name
+          description
+          kind
+          
+        }
+      }
+    }
+  }
+}
 
 
 

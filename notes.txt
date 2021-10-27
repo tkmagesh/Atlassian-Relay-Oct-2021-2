@@ -16,5 +16,149 @@ About You:
 
 
 What GraphQL?
-    
 
+    Protocol
+    Schema
+    Query
+    TypeSafe
+
+    GraphQL is a specification for a query language.
+
+Why GraphQL?
+    Underfetching
+    Overfetching 
+
+Data
+
+Web Services
+
+<Invoice>
+    <id>
+    <date>
+    <products>
+        <id>
+        <name>
+        <price>
+        <quantity>
+    </products>
+    <customer>
+        <id>
+        <name>
+        <email>
+        <phone>
+    </customer>
+</Invoice>
+
+
+REST service
+JSON
+http://myApi.com/users
+http://myApi.com/users/1
+http://myApi.com/products
+
+
+http://myApi.com/invoice/1001
+{
+    "id": 1001,
+    "date": "2018-01-01",
+    "invValue" : 200
+    "products": [
+        {
+            "id": 1,
+            "name": "Product 1",
+            "price": 100,
+            "quantity": 1
+        },
+        {
+            "id": 2,
+            "name": "Product 2",
+            "price": 200,
+            "quantity": 2
+        }
+    ],
+    "customer": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@email.com",
+    }
+}
+
+
+Read Optimized
+RDBMS (Write Optimized) (Effective for updates) (Transaction)
+Read & Append
+Analytical
+Realtime
+
+
+GrapqhQL
+    Schema
+        Types
+        Queries -> Response
+        Mutations
+        Subscriptions
+
+Type System
+    Scalar Type
+        ID
+        Int
+        Float
+        String
+        Boolean
+
+    Object
+        fields (scalar type / object type / array type)
+
+    Enum
+    Interface 
+    Union
+    Input Object
+
+
+
+interface Action{
+    id
+    date
+    bugId
+}
+
+OpenAction
+    id
+    date
+    bugId
+    openedBy
+    description
+
+CommentAction
+    id
+    date
+    bugId
+    commentedBy
+    comment
+
+FixAction
+    id
+    date
+    bugId
+    fixedBy
+    solution
+
+CloseAction
+    id
+    date
+    bugId
+    closedBy
+
+Query User 
+    user | error
+
+
+Setup the server
+    cd graphql-server
+    npm install
+    npm start
+
+User
+Project
+Bug
+Actions

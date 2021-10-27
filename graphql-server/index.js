@@ -23,6 +23,9 @@ const { resolve } = require('path');
 
 const app = express()
 
+const { express: voyagerMiddleware} = require('graphql-voyager/middleware');
+
+
 const User = new GraphQLObjectType({
     name: 'User',
     description: 'Represents a user of the application',
@@ -411,6 +414,8 @@ const schema = new GraphQLSchema({
 });
 
 fs.writeFileSync('./schema.graphql', printSchema(schema));
+
+app.use("/voyager", voyagerMiddleware({ endpointUrl : '/graphql'}));
 
 app.use('/graphql', graphqlHTTP({
     schema,

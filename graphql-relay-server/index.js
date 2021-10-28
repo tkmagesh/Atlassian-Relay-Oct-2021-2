@@ -30,7 +30,7 @@ const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
         if (obj.fixedBy) return FixAction;
         if (obj.closedBy) return CloseAction;
         if (obj.severity) return Bug;
-        if (obj.isActive) return Project;
+        if (obj.hasOwnProperty('isActive')) return Project;
         return null
     }
 )
@@ -236,6 +236,7 @@ const Project = new GraphQLObjectType({
             },
             resolve(parent, args){
                 if (typeof args.status !== 'undefined') {
+                    
                     return db.bugs().filter(bug => bug.projectId === parent.id && bug.status === args.status);
                 }
                 return db.bugs().filter(bug => bug.projectId === parent.id);
@@ -450,11 +451,11 @@ const schema = new GraphQLSchema({
 
 fs.writeFileSync('./schema.graphql', printSchema(schema));
 
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
     setTimeout(() => {
         next();
     }, 3000);
-})
+}) */
 
 app.use('/nodes', (req, res, next) => {
     res.send(JSON.stringify(db.nodes));

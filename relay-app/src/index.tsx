@@ -5,12 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RelayEnvironmentProvider } from 'react-relay';
 import RelayEnvironment from './RelayEnvironment';
+import Users from './Users';
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >
     <React.StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
-      <App />
+        <App />
+      </Suspense>
+       <Suspense fallback={<div>Loading users...</div>}>
+        <Users />
       </Suspense>
     </React.StrictMode>
   </RelayEnvironmentProvider>,

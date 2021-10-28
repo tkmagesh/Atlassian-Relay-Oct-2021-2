@@ -244,4 +244,9 @@ Creating a Relay application
     yarn create react-app relay-app --template typescript
     cd react-app
     yarn add react-relay relay-runtime
-    yarn add -D relay-compiler relay-compiler-language-typescript @types/react-relay babel-relay-plugin graphql relay-config
+    yarn add -D relay-compiler relay-compiler-language-typescript @types/react-relay babel-plugin-relay graphql relay-config
+
+
+Create a Users component
+Display the count of users (from the server)
+List the users

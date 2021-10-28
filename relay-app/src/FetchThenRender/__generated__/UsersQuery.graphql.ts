@@ -6,7 +6,6 @@ import { ConcreteRequest } from "relay-runtime";
 
 export type UsersQueryVariables = {};
 export type UsersQueryResponse = {
-    readonly totalUsers: number | null;
     readonly users: ReadonlyArray<{
         readonly id: string;
         readonly firstName: string;
@@ -22,7 +21,6 @@ export type UsersQuery = {
 
 /*
 query UsersQuery {
-  totalUsers
   users {
     id
     firstName
@@ -33,13 +31,6 @@ query UsersQuery {
 
 const node: ConcreteRequest = (function(){
 var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "totalUsers",
-    "storageKey": null
-  },
   {
     "alias": null,
     "args": null,
@@ -91,14 +82,14 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "3dace26ea8a446266d22a23241411361",
+    "cacheID": "76ddcae7ed2314402e1fb3146494fa82",
     "id": null,
     "metadata": {},
     "name": "UsersQuery",
     "operationKind": "query",
-    "text": "query UsersQuery {\n  totalUsers\n  users {\n    id\n    firstName\n    lastName\n  }\n}\n"
+    "text": "query UsersQuery {\n  users {\n    id\n    firstName\n    lastName\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '098e936660908db9f3989d27287027b1';
+(node as any).hash = '61251c457881cf9ba9fab51d2f1df35b';
 export default node;

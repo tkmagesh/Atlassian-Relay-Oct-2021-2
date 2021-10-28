@@ -1,20 +1,20 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+
 import reportWebVitals from './reportWebVitals';
 import { RelayEnvironmentProvider } from 'react-relay';
 import RelayEnvironment from './RelayEnvironment';
-import Users from './Users';
+/* import App from './FetchThenRender/App';
+import Users from './FetchThenRender/Users';
+ */
+import App from './RenderAsFetched/App';
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >
     <React.StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
         <App />
-      </Suspense>
-       <Suspense fallback={<div>Loading users...</div>}>
-        <Users />
       </Suspense>
     </React.StrictMode>
   </RelayEnvironmentProvider>,

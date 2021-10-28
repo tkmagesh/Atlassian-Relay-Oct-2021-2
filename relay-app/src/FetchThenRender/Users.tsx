@@ -10,18 +10,24 @@ import { useLazyLoadQuery } from 'react-relay';
 import { UsersQuery as UsersQueryType } from './__generated__/UsersQuery.graphql';
     //typedef => UsersQueryType
 
+import { UsersTotalQuery as UsersTotalQueryType } from './__generated__/UsersTotalQuery.graphql';
 
 const { graphql } = require('babel-plugin-relay/macro');
 const Users = () => {
-    const { totalUsers, users } = useLazyLoadQuery<UsersQueryType>(graphql`
+    const { users } = useLazyLoadQuery<UsersQueryType>(graphql`
         query UsersQuery {
-            totalUsers
             users {
                 id
                 firstName
                 lastName
             }
         }`, {});
+    
+    const { totalUsers } = useLazyLoadQuery<UsersTotalQueryType>(graphql`
+        query UsersTotalQuery {
+            totalUsers
+        }
+    `, {});
     return (
         <>
             <h1>Users : {totalUsers}</h1>

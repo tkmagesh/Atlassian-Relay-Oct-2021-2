@@ -177,3 +177,71 @@ Rendering Stratagies
     Render as you fetch (Concurrent, Suspense)
         Begin fetching
         Begin rendering
+
+fetch as you render
+    useQueryLoader
+    usePreloadedQuery
+
+    child components
+        useFragment
+
+fetch on render
+    useLazyLoadQuery
+
+Relay 
+    GraphQL 
+    Store
+        action-11
+        action-12
+        action-13
+        action-21
+        action-22
+        action-23
+        bug-1
+            reference to action-11
+            reference to action-12
+            reference to action-13
+        bug-2
+            reference to action-21
+            reference to action-22
+            reference to action-23
+        project-1
+            reference to bug-1
+            reference to bug-2
+    Cache
+
+    Relay Compiler
+        compiles graphql queries
+            validates the query against the schema
+            Creates typedefs for the queries and the results
+                flow
+                typescript
+
+            AST for the queries
+
+    Relay Runtime
+    Relay APIs
+
+Query1
+project-1
+    id
+    name
+    description
+    bug-1
+        action-11
+        action-12
+        action-13
+    bug-2
+        action-21
+        action-22
+        action-23
+
+Query2
+action-11
+
+
+Creating a Relay application
+    yarn create react-app relay-app --template typescript
+    cd react-app
+    yarn add react-relay relay-runtime
+    yarn add -D relay-compiler relay-compiler-language-typescript @types/react-relay babel-relay-plugin graphql relay-config

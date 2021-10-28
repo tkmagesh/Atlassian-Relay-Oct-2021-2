@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useQueryLoader } from "react-relay"
 import Users from './Users'
-import * as AppPreLoadQuery from './__generated__/AppPreLoadQuery.graphql'
+import * as AppFragmentedQuery from './__generated__/AppFragmentedQuery.graphql'
 
 const { graphql } = require("babel-plugin-relay/macro");
 
 const App = () => {
-    const [queryRef, loadQuery, dispose] = useQueryLoader<AppPreLoadQuery.AppPreLoadQuery>(graphql`
-        query AppPreLoadQuery {
-            totalUsers
+    const [queryRef, loadQuery, dispose] = useQueryLoader<AppFragmentedQuery.AppFragmentedQuery>(graphql`
+        query AppFragmentedQuery {
             users{
                 id
-                firstName
-                lastName
+                ...User_user
+                ...UserIds_user
             }
+            totalUsers
         }
     `);
     useEffect(() => {
@@ -23,7 +23,7 @@ const App = () => {
 
     return(
         <div>
-            {queryRef && <Users queryRef={queryRef}/>}
+             {queryRef && <Users queryRef={queryRef}/>}
         </div>
     )
 }

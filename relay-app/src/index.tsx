@@ -8,7 +8,9 @@ import RelayEnvironment from './RelayEnvironment';
 /* import App from './FetchThenRender/App';
 import Users from './FetchThenRender/Users';
  */
-import App from './RenderAsFetched/App';
+//import App from './RenderAsFetched/App';
+
+import App from './Fragments/App'
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >

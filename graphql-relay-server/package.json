@@ -13,16 +13,17 @@
     "global": "^4.4.0",
     "graphql": "^15.6.1",
     "graphql-relay": "^0.9.0",
+    "graphql-relay-subscription": "^0.3.1",
     "graphql-subscriptions": "^1.2.1",
-    "graphql-ws": "^5.5.3",
+    "graphql-ws": "^5.5.4",
     "subscriptions-transport-ws": "^0.9.19",
     "ws": "^8.2.3"
   },
   "scripts": {
     "start": "nodemon index.js",
     "start-relay": "nodemon index-relay.js",
-    "start-mutation" : "nodemon index-mutation.js",
-    "start-pagination" : "nodemon index-pagination.js"
+    "start-mutation": "nodemon index-mutation.js",
+    "start-pagination": "nodemon index-pagination.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"

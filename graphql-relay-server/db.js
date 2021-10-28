@@ -126,7 +126,6 @@ function createBug({title, description, severity, projectId, userId}){
         status : 0,
         projectId : projectId,
     }
-    console.log(newBug)
     openBug({bugId: newBug.id, openedBy: userId})
     nodes['bugs'][newBug.id] = newBug
     return newBug
@@ -142,6 +141,7 @@ function openBug({bugId, openedBy}){
         bugId : bugId,
     }
     nodes['actions'][newAction.id] = newAction
+    return newAction;
 }
 
 function fixBug({bugId, fixedBy, solution}){
@@ -154,7 +154,7 @@ function fixBug({bugId, fixedBy, solution}){
         bugId : bugId,
     }
     nodes['actions'][newAction.id] = newAction
-    return nodes['bugs'][bugId]
+    return newAction;
 }
 
 function closeBug({bugId, closedBy, reason}){
@@ -169,7 +169,7 @@ function closeBug({bugId, closedBy, reason}){
     nodes['actions'][newAction.id] = newAction
     const bug = nodes['bugs'][bugId]
     bug.status = 2
-    return bug
+    new newAction
 }
 
 function commentBug({bugId, commentedBy, comment}){
@@ -183,7 +183,8 @@ function commentBug({bugId, commentedBy, comment}){
     }
     nodes['actions'][newAction.id] = newAction
     const bug = nodes['bugs'][bugId]
-    return bug
+    return newAction;
+    //return bug
 }
 
 const db = {

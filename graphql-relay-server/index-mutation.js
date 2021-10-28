@@ -520,12 +520,17 @@ app.use('/nodes', (req, res, next) => {
     next()
 })
 
+app.use((req, res, next) => {
+    setTimeout(() => {
+        next();
+    }, 3000);
+})
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql : true,
 
 }));
 
-app.listen(8080, () => {
-    console.log(`GraphQL Server running on http://localhost:8080/graphql`)
+app.listen(8081, () => {
+    console.log(`GraphQL Server running on http://localhost:8081/graphql`)
 });

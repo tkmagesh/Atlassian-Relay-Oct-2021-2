@@ -6,17 +6,15 @@ interface Props{
     data : User_user$key
 }
 const User = ({data} : Props) => {
-    const user = useFragment(
-        graphql`
-            fragment User_user on User {
-                id
-                firstName
-                lastName
-                email
-            }
-        `,
-        data
-    )
+    const fragmentDef =  graphql`
+        fragment User_user on User {
+            id
+            firstName
+            lastName
+            email
+        }
+    `
+    const user = useFragment(fragmentDef, data)
     return (
         <div>
         <h2>{user.firstName} {user.lastName}</h2>

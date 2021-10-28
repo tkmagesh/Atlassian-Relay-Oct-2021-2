@@ -36,6 +36,10 @@ const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
 )
 
 const {graphqlHTTP} = require('express-graphql');
+const ws = require('ws')
+const { useServer } = require('graphql-ws/lib/use/ws');
+const { execute, subscribe } = require('graphql');
+
 const db = require('./db');
 
 const app = express()

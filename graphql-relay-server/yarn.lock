@@ -548,6 +548,11 @@
   "resolved" "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.8.tgz"
   "version" "4.2.8"
 
+"graphql-relay-subscription@^0.3.1":
+  "integrity" "sha512-np9ez07ct0l6JkoM6cqiqoEtUNccETAAQNmkOSxkvdEm864CzfBBLmQorGhvhA5nnbLsckMCRJt0Vm0auGevDw=="
+  "resolved" "https://registry.npmjs.org/graphql-relay-subscription/-/graphql-relay-subscription-0.3.1.tgz"
+  "version" "0.3.1"
+
 "graphql-relay@^0.9.0":
   "integrity" "sha512-yNJLCqcjz0XpzpmmckRJCSK8a2ZLwTurwrQ09UyGftONh52PbrGpK1UO4yspvj0c7pC+jkN4ZUqVXG3LRrWkXQ=="
   "resolved" "https://registry.npmjs.org/graphql-relay/-/graphql-relay-0.9.0.tgz"
@@ -560,10 +565,10 @@
   dependencies:
     "iterall" "^1.3.0"
 
-"graphql-ws@^5.5.3":
-  "integrity" "sha512-Okp3gE3vq9OoeqsYVbmzKvPcvlinKNXrfVajH7D3ul1UdCg2+K2zVYbWKmqxehkAZ+GKVfngK5fzyXSsfpe+pA=="
-  "resolved" "https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.5.3.tgz"
-  "version" "5.5.3"
+"graphql-ws@^5.5.4":
+  "integrity" "sha512-t8NfKc4pz7F4f1prqa/BVopRDPtykEtiLUk8A2ByB+9F8FUDoshYxQHVaZhDVaQ+NMULiILiAblkF/bcwYW6yg=="
+  "resolved" "https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.5.4.tgz"
+  "version" "5.5.4"
 
 "graphql@^0.10.5 || ^0.11.3 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0", "graphql@^14.7.0 || ^15.3.0", "graphql@^15.5.3", "graphql@^15.6.1", "graphql@>=0.10.0", "graphql@>=0.11 <=16":
   "integrity" "sha512-3i5lu0z6dRvJ48QP9kFxBkJ7h4Kso7PS8eahyTFz5Jm6CvQfLtNIE8LX9N6JLnXTuwR+sIYnXzaWp6anOg0QQw=="

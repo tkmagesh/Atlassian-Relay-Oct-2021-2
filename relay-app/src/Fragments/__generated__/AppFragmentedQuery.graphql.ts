@@ -5,13 +5,19 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AppFragmentedQueryVariables = {};
+export type Status = "CLOSED" | "IN_PROGRESS" | "OPEN" | "%future added value";
+export type AppFragmentedQueryVariables = {
+    status?: Status | null;
+};
 export type AppFragmentedQueryResponse = {
     readonly users: ReadonlyArray<{
         readonly id: string;
-        readonly " $fragmentRefs": FragmentRefs<"User_user" | "UserIds_user">;
+        readonly " $fragmentRefs": FragmentRefs<"User_user">;
     }>;
     readonly totalUsers: number | null;
+    readonly projects: ReadonlyArray<{
+        readonly " $fragmentRefs": FragmentRefs<"Project_project">;
+    } | null>;
 };
 export type AppFragmentedQuery = {
     readonly response: AppFragmentedQueryResponse;
@@ -21,17 +27,35 @@ export type AppFragmentedQuery = {
 
 
 /*
-query AppFragmentedQuery {
+query AppFragmentedQuery(
+  $status: Status
+) {
   users {
     id
     ...User_user
-    ...UserIds_user
   }
   totalUsers
+  projects {
+    ...Project_project
+    id
+  }
 }
 
-fragment UserIds_user on User {
+fragment Bug_bug on Bug {
   id
+  title
+  description
+  status
+}
+
+fragment Project_project on Project {
+  id
+  name
+  description
+  bugs(status: $status) {
+    id
+    ...Bug_bug
+  }
 }
 
 fragment User_user on User {
@@ -43,23 +67,37 @@ fragment User_user on User {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "status"
+  }
+],
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalUsers",
   "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "AppFragmentedQuery",
@@ -72,28 +110,39 @@ return {
         "name": "users",
         "plural": true,
         "selections": [
-          (v0/*: any*/),
+          (v1/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "User_user"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserIds_user"
           }
         ],
         "storageKey": null
       },
-      (v1/*: any*/)
+      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Project",
+        "kind": "LinkedField",
+        "name": "projects",
+        "plural": true,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "Project_project"
+          }
+        ],
+        "storageKey": null
+      }
     ],
     "type": "RootQuery",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AppFragmentedQuery",
     "selections": [
@@ -105,7 +154,7 @@ return {
         "name": "users",
         "plural": true,
         "selections": [
-          (v0/*: any*/),
+          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -130,18 +179,71 @@ return {
         ],
         "storageKey": null
       },
-      (v1/*: any*/)
+      (v2/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Project",
+        "kind": "LinkedField",
+        "name": "projects",
+        "plural": true,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "status",
+                "variableName": "status"
+              }
+            ],
+            "concreteType": "Bug",
+            "kind": "LinkedField",
+            "name": "bugs",
+            "plural": true,
+            "selections": [
+              (v1/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              },
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "status",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
     ]
   },
   "params": {
-    "cacheID": "2d7da6494508df23fb5bd93e709aa9b9",
+    "cacheID": "c16b36e52890fc976b3f06517b6517da",
     "id": null,
     "metadata": {},
     "name": "AppFragmentedQuery",
     "operationKind": "query",
-    "text": "query AppFragmentedQuery {\n  users {\n    id\n    ...User_user\n    ...UserIds_user\n  }\n  totalUsers\n}\n\nfragment UserIds_user on User {\n  id\n}\n\nfragment User_user on User {\n  id\n  firstName\n  lastName\n  email\n}\n"
+    "text": "query AppFragmentedQuery(\n  $status: Status\n) {\n  users {\n    id\n    ...User_user\n  }\n  totalUsers\n  projects {\n    ...Project_project\n    id\n  }\n}\n\nfragment Bug_bug on Bug {\n  id\n  title\n  description\n  status\n}\n\nfragment Project_project on Project {\n  id\n  name\n  description\n  bugs(status: $status) {\n    id\n    ...Bug_bug\n  }\n}\n\nfragment User_user on User {\n  id\n  firstName\n  lastName\n  email\n}\n"
   }
 };
 })();
-(node as any).hash = '3e6e4a766a63a52a3176391dacf143ea';
+(node as any).hash = 'd9758bf5828adcbcc81b5dd2c60a4c54';
 export default node;

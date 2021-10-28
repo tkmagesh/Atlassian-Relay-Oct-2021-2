@@ -254,3 +254,5 @@ List the users
 Relay Complaint GraphQL Server
     1. Every entity has to be globaly uniquely identified
     2. Expose "node & nodes" query
+
+useRefetchableFragment

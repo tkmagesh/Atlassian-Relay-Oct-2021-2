@@ -15,6 +15,7 @@ export type AppCreateUserMutationResponse = {
         readonly firstName: string;
         readonly lastName: string;
         readonly email: string;
+        readonly fullName: string;
     } | null;
 };
 export type AppCreateUserMutation = {
@@ -35,6 +36,7 @@ mutation AppCreateUserMutation(
     firstName
     lastName
     email
+    fullName
   }
 }
 */
@@ -107,6 +109,13 @@ v3 = [
         "kind": "ScalarField",
         "name": "email",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "fullName",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -138,14 +147,14 @@ return {
     "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "1ddbea62a832989eaf466bf582dabfcd",
+    "cacheID": "c522c05650dcbd718114f70ac94166b8",
     "id": null,
     "metadata": {},
     "name": "AppCreateUserMutation",
     "operationKind": "mutation",
-    "text": "mutation AppCreateUserMutation(\n  $firstName: String!\n  $lastName: String!\n  $email: String!\n) {\n  createUser(firstName: $firstName, lastName: $lastName, email: $email) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
+    "text": "mutation AppCreateUserMutation(\n  $firstName: String!\n  $lastName: String!\n  $email: String!\n) {\n  createUser(firstName: $firstName, lastName: $lastName, email: $email) {\n    id\n    firstName\n    lastName\n    email\n    fullName\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '874a4bf5397002e95df2b2970855030e';
+(node as any).hash = '2f9a67fd85c4b02e38c2a47cbada3804';
 export default node;

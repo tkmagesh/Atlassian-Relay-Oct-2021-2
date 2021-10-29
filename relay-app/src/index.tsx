@@ -10,7 +10,14 @@ import Users from './FetchThenRender/Users';
  */
 //import App from './RenderAsFetched/App';
 
-import App from './Fragments/App'
+//import App from './Fragments/App'
+import App from './mutations/App'
+
+declare global{
+  interface Window { store : any}
+}
+
+
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={RelayEnvironment} >

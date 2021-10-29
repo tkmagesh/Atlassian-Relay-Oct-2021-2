@@ -6,7 +6,13 @@ async function fetchRelay(params, variables){
     return fetchGraphQL(params.text, variables);
 }
 
-export default new Environment({
+const enviornment = new Environment({
     network: Network.create(fetchRelay),
     store: new Store(new RecordSource()),
 });
+
+/* window['store'] = enviornment.getStore();
+console.dir(window.store);
+ */
+export default enviornment;
+

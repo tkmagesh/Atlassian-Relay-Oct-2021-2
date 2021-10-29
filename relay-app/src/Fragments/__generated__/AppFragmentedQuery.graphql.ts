@@ -16,6 +16,7 @@ export type AppFragmentedQueryResponse = {
     }>;
     readonly totalUsers: number | null;
     readonly projects: ReadonlyArray<{
+        readonly id: string;
         readonly " $fragmentRefs": FragmentRefs<"Project_project">;
     } | null>;
 };
@@ -36,8 +37,8 @@ query AppFragmentedQuery(
   }
   totalUsers
   projects {
-    ...Project_project
     id
+    ...Project_project
   }
 }
 
@@ -128,6 +129,7 @@ return {
         "name": "projects",
         "plural": true,
         "selections": [
+          (v1/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -236,14 +238,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c16b36e52890fc976b3f06517b6517da",
+    "cacheID": "0c053a5de74a079e31d88945bfc0de0b",
     "id": null,
     "metadata": {},
     "name": "AppFragmentedQuery",
     "operationKind": "query",
-    "text": "query AppFragmentedQuery(\n  $status: Status\n) {\n  users {\n    id\n    ...User_user\n  }\n  totalUsers\n  projects {\n    ...Project_project\n    id\n  }\n}\n\nfragment Bug_bug on Bug {\n  id\n  title\n  description\n  status\n}\n\nfragment Project_project on Project {\n  id\n  name\n  description\n  bugs(status: $status) {\n    id\n    ...Bug_bug\n  }\n}\n\nfragment User_user on User {\n  id\n  firstName\n  lastName\n  email\n}\n"
+    "text": "query AppFragmentedQuery(\n  $status: Status\n) {\n  users {\n    id\n    ...User_user\n  }\n  totalUsers\n  projects {\n    id\n    ...Project_project\n  }\n}\n\nfragment Bug_bug on Bug {\n  id\n  title\n  description\n  status\n}\n\nfragment Project_project on Project {\n  id\n  name\n  description\n  bugs(status: $status) {\n    id\n    ...Bug_bug\n  }\n}\n\nfragment User_user on User {\n  id\n  firstName\n  lastName\n  email\n}\n"
   }
 };
 })();
-(node as any).hash = 'd9758bf5828adcbcc81b5dd2c60a4c54';
+(node as any).hash = 'be04ad3babbcb3a3b70076afa0f069aa';
 export default node;

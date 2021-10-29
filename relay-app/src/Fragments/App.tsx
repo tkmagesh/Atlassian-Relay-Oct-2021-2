@@ -15,6 +15,7 @@ const App = () => {
             }
             totalUsers
             projects{
+                id
                ...Project_project
             }
         }

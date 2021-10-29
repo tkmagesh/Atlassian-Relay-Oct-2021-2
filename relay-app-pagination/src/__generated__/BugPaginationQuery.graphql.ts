@@ -25,12 +25,18 @@ export type BugPaginationQuery = {
 query BugPaginationQuery(
   $after: String
   $first: Int
-  $status: Status = IN_PROGRESS
+  $status: Status
 ) {
   ...Bugs_list_2mP0Nu
 }
 
 fragment Bugs_list_2mP0Nu on RootQuery {
+  users {
+    id
+  }
+  projects {
+    id
+  }
   bugs(status: $status, first: $first, after: $after) {
     edges {
       node {
@@ -63,7 +69,7 @@ var v0 = [
     "name": "first"
   },
   {
-    "defaultValue": "IN_PROGRESS",
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "status"
   }
@@ -84,6 +90,16 @@ v1 = [
     "name": "status",
     "variableName": "status"
   }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = [
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
@@ -109,6 +125,26 @@ return {
     "selections": [
       {
         "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "users",
+        "plural": true,
+        "selections": (v3/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Project",
+        "kind": "LinkedField",
+        "name": "projects",
+        "plural": true,
+        "selections": (v3/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "BugConnection",
         "kind": "LinkedField",
@@ -131,13 +167,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -221,14 +251,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f3b63c05a94a9886808af77b05d81c30",
+    "cacheID": "4ee3a46054aed1648a5590981b225fce",
     "id": null,
     "metadata": {},
     "name": "BugPaginationQuery",
     "operationKind": "query",
-    "text": "query BugPaginationQuery(\n  $after: String\n  $first: Int\n  $status: Status = IN_PROGRESS\n) {\n  ...Bugs_list_2mP0Nu\n}\n\nfragment Bugs_list_2mP0Nu on RootQuery {\n  bugs(status: $status, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query BugPaginationQuery(\n  $after: String\n  $first: Int\n  $status: Status\n) {\n  ...Bugs_list_2mP0Nu\n}\n\nfragment Bugs_list_2mP0Nu on RootQuery {\n  users {\n    id\n  }\n  projects {\n    id\n  }\n  bugs(status: $status, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b6b35c54c8ca5936fc3a948fddebe2bb';
+(node as any).hash = '3583f1ca7b0a1548c02c122d3ef03537';
 export default node;

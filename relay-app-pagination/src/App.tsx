@@ -12,7 +12,7 @@ const App = () => {
                 firstName
                 lastName
             }
-            ...Bugs_list @arguments(first: 1, status : OPEN)
+            ...Bugs_list @arguments(first: 10)
         }
     `, {})
     return (

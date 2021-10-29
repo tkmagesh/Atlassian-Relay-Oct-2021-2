@@ -28,11 +28,17 @@ query AppQuery {
     firstName
     lastName
   }
-  ...Bugs_list_1on5gJ
+  ...Bugs_list_4i7Unr
 }
 
-fragment Bugs_list_1on5gJ on RootQuery {
-  bugs(status: OPEN, first: 1) {
+fragment Bugs_list_4i7Unr on RootQuery {
+  users {
+    id
+  }
+  projects {
+    id
+  }
+  bugs(first: 10) {
     edges {
       node {
         id
@@ -89,12 +95,7 @@ v2 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 1
-  },
-  {
-    "kind": "Literal",
-    "name": "status",
-    "value": "OPEN"
+    "value": 10
   }
 ];
 return {
@@ -121,6 +122,18 @@ return {
     "name": "AppQuery",
     "selections": [
       (v1/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Project",
+        "kind": "LinkedField",
+        "name": "projects",
+        "plural": true,
+        "selections": [
+          (v0/*: any*/)
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v2/*: any*/),
@@ -213,7 +226,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "bugs(first:1,status:\"OPEN\")"
+        "storageKey": "bugs(first:10)"
       },
       {
         "alias": null,
@@ -229,14 +242,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "296b82902e2fbb3dc130558a5261fd57",
+    "cacheID": "1cf6d92ed15b93899bd5987c44bc68e0",
     "id": null,
     "metadata": {},
     "name": "AppQuery",
     "operationKind": "query",
-    "text": "query AppQuery {\n  users {\n    id\n    firstName\n    lastName\n  }\n  ...Bugs_list_1on5gJ\n}\n\nfragment Bugs_list_1on5gJ on RootQuery {\n  bugs(status: OPEN, first: 1) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query AppQuery {\n  users {\n    id\n    firstName\n    lastName\n  }\n  ...Bugs_list_4i7Unr\n}\n\nfragment Bugs_list_4i7Unr on RootQuery {\n  users {\n    id\n  }\n  projects {\n    id\n  }\n  bugs(first: 10) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0496f067bdb7fca835d84514f5a529bf';
+(node as any).hash = '52997b96ee4cdb914a3aa9655c41014c';
 export default node;

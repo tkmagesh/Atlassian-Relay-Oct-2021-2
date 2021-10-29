@@ -7,6 +7,12 @@ import BugPaginationQuery from "./BugPaginationQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type Status = "CLOSED" | "IN_PROGRESS" | "OPEN" | "%future added value";
 export type Bugs_list = {
+    readonly users: ReadonlyArray<{
+        readonly id: string;
+    }>;
+    readonly projects: ReadonlyArray<{
+        readonly id: string;
+    } | null>;
     readonly bugs: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -30,6 +36,16 @@ export type Bugs_list$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   "bugs"
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [
@@ -44,7 +60,7 @@ return {
       "name": "first"
     },
     {
-      "defaultValue": "IN_PROGRESS",
+      "defaultValue": null,
       "kind": "LocalArgument",
       "name": "status"
     }
@@ -75,6 +91,26 @@ return {
   "name": "Bugs_list",
   "selections": [
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "users",
+      "plural": true,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Project",
+      "kind": "LinkedField",
+      "name": "projects",
+      "plural": true,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
       "alias": "bugs",
       "args": [
         {
@@ -104,13 +140,7 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -185,5 +215,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b6b35c54c8ca5936fc3a948fddebe2bb';
+(node as any).hash = '3583f1ca7b0a1548c02c122d3ef03537';
 export default node;

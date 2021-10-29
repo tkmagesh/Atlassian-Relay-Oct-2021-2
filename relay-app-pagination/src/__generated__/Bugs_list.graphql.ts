@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import BugPaginationQuery from "./BugPaginationQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
+export type Status = "CLOSED" | "IN_PROGRESS" | "OPEN" | "%future added value";
 export type Bugs_list = {
     readonly bugs: {
         readonly edges: ReadonlyArray<{
@@ -12,6 +13,7 @@ export type Bugs_list = {
                 readonly id: string;
                 readonly title: string;
                 readonly description: string;
+                readonly status: Status | null;
             } | null;
         } | null> | null;
     } | null;
@@ -37,9 +39,14 @@ return {
       "name": "after"
     },
     {
-      "defaultValue": 2,
+      "defaultValue": null,
       "kind": "LocalArgument",
       "name": "first"
+    },
+    {
+      "defaultValue": "IN_PROGRESS",
+      "kind": "LocalArgument",
+      "name": "status"
     }
   ],
   "kind": "Fragment",
@@ -69,7 +76,13 @@ return {
   "selections": [
     {
       "alias": "bugs",
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "status",
+          "variableName": "status"
+        }
+      ],
       "concreteType": "BugConnection",
       "kind": "LinkedField",
       "name": "__Bugs_bugs_connection",
@@ -110,6 +123,13 @@ return {
                   "args": null,
                   "kind": "ScalarField",
                   "name": "description",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "status",
                   "storageKey": null
                 },
                 {
@@ -165,5 +185,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1f573b03aa8906a4a48e1bc11cf2362d';
+(node as any).hash = 'b6b35c54c8ca5936fc3a948fddebe2bb';
 export default node;

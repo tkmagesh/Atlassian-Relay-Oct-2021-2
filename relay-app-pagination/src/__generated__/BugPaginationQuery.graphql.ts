@@ -5,9 +5,11 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type Status = "CLOSED" | "IN_PROGRESS" | "OPEN" | "%future added value";
 export type BugPaginationQueryVariables = {
     after?: string | null;
     first?: number | null;
+    status?: Status | null;
 };
 export type BugPaginationQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"Bugs_list">;
@@ -22,18 +24,20 @@ export type BugPaginationQuery = {
 /*
 query BugPaginationQuery(
   $after: String
-  $first: Int = 2
+  $first: Int
+  $status: Status = IN_PROGRESS
 ) {
-  ...Bugs_list_2HEEH6
+  ...Bugs_list_2mP0Nu
 }
 
-fragment Bugs_list_2HEEH6 on RootQuery {
-  bugs(first: $first, after: $after) {
+fragment Bugs_list_2mP0Nu on RootQuery {
+  bugs(status: $status, first: $first, after: $after) {
     edges {
       node {
         id
         title
         description
+        status
         __typename
       }
       cursor
@@ -54,9 +58,14 @@ var v0 = [
     "name": "after"
   },
   {
-    "defaultValue": 2,
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "first"
+  },
+  {
+    "defaultValue": "IN_PROGRESS",
+    "kind": "LocalArgument",
+    "name": "status"
   }
 ],
 v1 = [
@@ -69,6 +78,11 @@ v1 = [
     "kind": "Variable",
     "name": "first",
     "variableName": "first"
+  },
+  {
+    "kind": "Variable",
+    "name": "status",
+    "variableName": "status"
   }
 ];
 return {
@@ -142,6 +156,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "status",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
                   }
@@ -189,7 +210,9 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "filters": null,
+        "filters": [
+          "status"
+        ],
         "handle": "connection",
         "key": "Bugs_bugs",
         "kind": "LinkedHandle",
@@ -198,14 +221,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d2149c7705125cf4d3bf4ccec3c6e824",
+    "cacheID": "f3b63c05a94a9886808af77b05d81c30",
     "id": null,
     "metadata": {},
     "name": "BugPaginationQuery",
     "operationKind": "query",
-    "text": "query BugPaginationQuery(\n  $after: String\n  $first: Int = 2\n) {\n  ...Bugs_list_2HEEH6\n}\n\nfragment Bugs_list_2HEEH6 on RootQuery {\n  bugs(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        title\n        description\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query BugPaginationQuery(\n  $after: String\n  $first: Int\n  $status: Status = IN_PROGRESS\n) {\n  ...Bugs_list_2mP0Nu\n}\n\nfragment Bugs_list_2mP0Nu on RootQuery {\n  bugs(status: $status, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1f573b03aa8906a4a48e1bc11cf2362d';
+(node as any).hash = 'b6b35c54c8ca5936fc3a948fddebe2bb';
 export default node;

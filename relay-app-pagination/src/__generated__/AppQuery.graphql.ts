@@ -28,16 +28,17 @@ query AppQuery {
     firstName
     lastName
   }
-  ...Bugs_list
+  ...Bugs_list_1on5gJ
 }
 
-fragment Bugs_list on RootQuery {
-  bugs(first: 2) {
+fragment Bugs_list_1on5gJ on RootQuery {
+  bugs(status: OPEN, first: 1) {
     edges {
       node {
         id
         title
         description
+        status
         __typename
       }
       cursor
@@ -88,7 +89,12 @@ v2 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 2
+    "value": 1
+  },
+  {
+    "kind": "Literal",
+    "name": "status",
+    "value": "OPEN"
   }
 ];
 return {
@@ -100,7 +106,7 @@ return {
     "selections": [
       (v1/*: any*/),
       {
-        "args": null,
+        "args": (v2/*: any*/),
         "kind": "FragmentSpread",
         "name": "Bugs_list"
       }
@@ -158,6 +164,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "status",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
                   }
@@ -200,12 +213,14 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "bugs(first:2)"
+        "storageKey": "bugs(first:1,status:\"OPEN\")"
       },
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "filters": null,
+        "filters": [
+          "status"
+        ],
         "handle": "connection",
         "key": "Bugs_bugs",
         "kind": "LinkedHandle",
@@ -214,14 +229,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "df6eb4e06539df9ef492f9d54717cf66",
+    "cacheID": "296b82902e2fbb3dc130558a5261fd57",
     "id": null,
     "metadata": {},
     "name": "AppQuery",
     "operationKind": "query",
-    "text": "query AppQuery {\n  users {\n    id\n    firstName\n    lastName\n  }\n  ...Bugs_list\n}\n\nfragment Bugs_list on RootQuery {\n  bugs(first: 2) {\n    edges {\n      node {\n        id\n        title\n        description\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query AppQuery {\n  users {\n    id\n    firstName\n    lastName\n  }\n  ...Bugs_list_1on5gJ\n}\n\nfragment Bugs_list_1on5gJ on RootQuery {\n  bugs(status: OPEN, first: 1) {\n    edges {\n      node {\n        id\n        title\n        description\n        status\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f666d5820d4dd5621b79ff95941fe623';
+(node as any).hash = '0496f067bdb7fca835d84514f5a529bf';
 export default node;

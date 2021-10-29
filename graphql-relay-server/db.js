@@ -79,6 +79,10 @@ function createActions(){
         const bug = nodes['bugs'][bugKey]
         openBug({bugId: bug.id, openedBy: bug.createdBy})
         commentBug({bugId: bug.id, commentedBy: `user-${casual.random_element([1,2,3,4])}`, comment: casual.description})
+        commentBug({bugId: bug.id, commentedBy: `user-${casual.random_element([1,2,3,4])}`, comment: casual.description})
+        commentBug({bugId: bug.id, commentedBy: `user-${casual.random_element([1,2,3,4])}`, comment: casual.description})
+        commentBug({bugId: bug.id, commentedBy: `user-${casual.random_element([1,2,3,4])}`, comment: casual.description})
+        commentBug({bugId: bug.id, commentedBy: `user-${casual.random_element([1,2,3,4])}`, comment: casual.description})
         fixBug({bugId: bug.id, fixedBy: `user-${casual.random_element([1,2,3,4])}`, solution: casual.description})
         //closeBug({bugId: bug.id, closedBy: `user-${casual.random_element([1,2,3,4])}`, reason: casual.description}) 
     }

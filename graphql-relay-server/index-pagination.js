@@ -324,8 +324,13 @@ var queryType = new GraphQLObjectType({
                 status : { type : Status }
             },
             resolve(parentValue, args) {
-                const filteredBugs = db.bugs();
-                return connectionFromArray(filteredBugs, args)                
+                if (args.hasOwnProperty('status')) {
+                    const filteredBugs = db.bugs().filter(bug => bug.status === args.status);
+                    return connectionFromArray(filteredBugs, args)
+                } else {
+                    const filteredBugs = db.bugs();
+                    return connectionFromArray(filteredBugs, args)
+                }
             }
         },
         openBugs: {

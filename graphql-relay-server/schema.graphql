@@ -1,6 +1,7 @@
 schema {
   query: RootQuery
   mutation: Mutations
+  subscription: Subscription
 }
 
 type User implements Node {
@@ -84,7 +85,52 @@ type Bug implements Node {
   createdBy: User
   status: Status
   projectId: ID
-  actions: [Action]
+  actions(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+  ): ActionConnection
+}
+
+"""A connection to a list of items."""
+type ActionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ActionEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type ActionEdge {
+  """The item at the end of the edge"""
+  node: Action
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type Project implements Node {
@@ -93,7 +139,37 @@ type Project implements Node {
   name: String!
   description: String!
   isActive: Boolean!
-  bugs(status: Status): [Bug!]
+  bugs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+  ): BugConnection
+}
+
+"""A connection to a list of items."""
+type BugConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BugEdge]
+}
+
+"""An edge in a connection."""
+type BugEdge {
+  """The item at the end of the edge"""
+  node: Bug
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type RootQuery {
@@ -114,28 +190,99 @@ type RootQuery {
   project(id: ID!): Project
   projects: [Project]!
   bug(id: ID!): Bug
-  bugs: [Bug]!
-  openBugs(projectId: ID!): [Bug]!
+  bugs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    status: Status
+  ): BugConnection
+  openBugs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    projectId: ID!
+  ): BugConnection
   action(
     """The ID of an object"""
     id: ID!
   ): Action
-  actions(bugId: ID!): [Action]!
+  actions(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    bugId: ID!
+  ): ActionConnection
 }
 
 type Mutations {
-  createUser(firstName: String!, lastName: String!, email: String!): User
-  createProject(project: ProjectInput): Project
-  createBug(bug: BugInput): Bug
-  fixBug(fixInfo: FixBugInput): Bug
-  closeBug(closeBugInfo: CloseBugInput): Bug
-  commentBug(commentInfo: CommentBugInput): Bug
+  createUser(input: CreateUserInput!): CreateUserPayload
+  createProject(input: CreateProjectInput!): CreateProjectPayload
+  createBug(input: CreateBugInput!): CreateBugPayload
+  fixBug(input: FixBugInput!): FixBugPayload
+  closeBug(input: CloseBugInput!): CloseBugPayload
+  commentBug(input: CommentBugInput!): CommentBugPayload
+}
+
+type CreateUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  clientMutationId: String
+}
+
+type CreateProjectPayload {
+  project: Project
+  clientMutationId: String
+}
+
+input CreateProjectInput {
+  project: ProjectInput
+  clientMutationId: String
 }
 
 input ProjectInput {
   name: String!
   description: String!
   isActive: Boolean!
+}
+
+type CreateBugPayload {
+  bugEdge: BugEdge
+  clientMutationId: String
+}
+
+input CreateBugInput {
+  bug: BugInput
+  clientMutationId: String
 }
 
 input BugInput {
@@ -146,20 +293,54 @@ input BugInput {
   userId: ID!
 }
 
+type FixBugPayload {
+  actionEdge: ActionEdge
+  clientMutationId: String
+}
+
 input FixBugInput {
+  fixInfo: FixInput
+  clientMutationId: String
+}
+
+input FixInput {
   bugId: ID!
   fixedBy: ID!
   solution: String!
 }
 
+type CloseBugPayload {
+  actionEdge: ActionEdge
+  clientMutationId: String
+}
+
 input CloseBugInput {
+  closeInfo: CloseInput
+  clientMutationId: String
+}
+
+input CloseInput {
   bugId: ID!
   closedBy: ID!
   reason: String!
 }
 
+type CommentBugPayload {
+  actionEdge: ActionEdge
+  clientMutationId: String
+}
+
 input CommentBugInput {
+  commentInfo: CommentInput
+  clientMutationId: String
+}
+
+input CommentInput {
   bugId: ID!
   commentedBy: ID!
   comment: String!
+}
+
+type Subscription {
+  NewBug: Bug
 }

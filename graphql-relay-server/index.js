@@ -392,6 +392,7 @@ const mutationType = new GraphQLObjectType({
                 email : {type : GraphQLNonNull(GraphQLString)}
             },
             resolve(parentValue, args){
+                throw new Error("Create user error!");
                 return db.createUser(args.firstName, args.lastName, args.email);
             }
         },
